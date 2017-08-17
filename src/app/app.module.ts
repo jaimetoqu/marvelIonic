@@ -5,11 +5,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {ComicService} from './providers/comic.service';
-import {FilterPipe} from './providers/filter.pipe';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { DetailPage } from '../pages/detail/detail';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {FilterPipe} from '../app/providers/filter.pipe';
 
 @NgModule({
   declarations: [

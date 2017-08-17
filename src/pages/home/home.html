@@ -9,11 +9,11 @@
 <ion-content padding>
   <ion-input type="text" name="comicFilter" [(ng-model)]="comicFilter" placeholder="Buscar.."></ion-input>
   <ion-list>
-     <ion-item *ngFor="let comic of comics | filter:comicFilter" (click)="itemSelected(comic)">
+     <ion-item *ngFor="let comic of comics" (click)="itemSelected(comic)">
       <ion-thumbnail item-start> 
-        <img src="https://www.bodybuilding.com/images/2016/september/the-perfect-home-gym-back-attack-header-b-960x540.jpg">
+        <img src="{{comic.images.fixed_height.url}}">
       </ion-thumbnail> 
-      <h2>{{comic.title}}</h2>
+      <h2>{{comic.slug}}</h2>
      </ion-item> 
   </ion-list>
 </ion-content>

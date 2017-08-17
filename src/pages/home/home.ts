@@ -29,9 +29,9 @@ export class HomePage {
   }
   
   getAll() {
-    this.comicService.getComics().subscribe(response => {
-      console.log(response);
-      //this.comics = response.data.results;
+    this.comicService.getComics().subscribe(data => {
+      console.log(data);
+      this.comics = data.data;
     });
   }
   

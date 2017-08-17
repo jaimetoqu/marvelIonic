@@ -58,13 +58,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ComicService = (function () {
     function ComicService(http) {
         this.http = http;
-        this.baseUrl = 'http://gateway.marvel.com';
+        //marvel 'apikey=5550f8ab35427d6ae85c1a6d28fab74d'
+        //https://gateway.marvel.com/v1/public/comics
+        //http://api.giphy.com/v1/gifs/search?q=funny+cat&
+        this.baseUrl = 'https://api.giphy.com/v1/gifs/search?q=funny+cat&';
         this.http = http;
-        //http://developer.marvel.com
-        //+ '/v1/public/comics?title=' + title + '&apikey=5550f8ab35427d6ae85c1a6d28fab74d'
     }
     ComicService.prototype.getComics = function () {
-        return this.http.get(this.baseUrl + '/v1/public/comics', { params: { apikey: '5550f8ab35427d6ae85c1a6d28fab74d' } }).map(function (res) { return res.json(); });
+        return this.http.get(this.baseUrl, { params: { apikey: '4d303e78dc49464283f7c2ebde0061d7' } }).map(function (res) { return res.json(); });
     };
     return ComicService;
 }());
@@ -116,16 +117,17 @@ var HomePage = (function () {
         });
     };
     HomePage.prototype.getAll = function () {
-        this.comicService.getComics().subscribe(function (response) {
-            console.log(response);
-            //this.comics = response.data.results;
+        var _this = this;
+        this.comicService.getComics().subscribe(function (data) {
+            console.log(data);
+            _this.comics = data.data;
         });
     };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/jaime/marvelIonic/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>\n      Marvel\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-input type="text" name="comicFilter" [(ng-model)]="comicFilter" placeholder="Buscar.."></ion-input>\n  <ion-list>\n     <ion-item *ngFor="let comic of comics | filter:comicFilter" (click)="itemSelected(comic)">\n      <ion-thumbnail item-start> \n        <img src="https://www.bodybuilding.com/images/2016/september/the-perfect-home-gym-back-attack-header-b-960x540.jpg">\n      </ion-thumbnail> \n      <h2>{{comic.title}}</h2>\n     </ion-item> \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/jaime/marvelIonic/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/jaime/marvelIonic/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>\n      Marvel\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-input type="text" name="comicFilter" [(ng-model)]="comicFilter" placeholder="Buscar.."></ion-input>\n  <ion-list>\n     <ion-item *ngFor="let comic of comics | filter:comicFilter" (click)="itemSelected(comic)">\n      <ion-thumbnail item-start> \n        <img src="{{comic.images.fixed_height.url}}">\n      </ion-thumbnail> \n      <h2>{{comic.slug}}</h2>\n     </ion-item> \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/jaime/marvelIonic/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_providers_comic_service__["a" /* ComicService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_providers_comic_service__["a" /* ComicService */]) === "function" && _b || Object])
 ], HomePage);
@@ -161,11 +163,12 @@ var DetailPage = (function () {
 }());
 DetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-detail',template:/*ion-inline-start:"/Users/jaime/marvelIonic/src/pages/detail/detail.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>\n      Marvel\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  The world is your oyster.\n  <p>\n    \n  </p>\n</ion-content>'/*ion-inline-end:"/Users/jaime/marvelIonic/src/pages/detail/detail.html"*/
+        selector: 'page-detail',template:/*ion-inline-start:"/Users/jaime/marvelIonic/src/pages/detail/detail.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <ion-title>\n      \n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  The world is your oyster.\n  <p>\n    \n  </p>\n</ion-content>'/*ion-inline-end:"/Users/jaime/marvelIonic/src/pages/detail/detail.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
 ], DetailPage);
 
+var _a;
 //# sourceMappingURL=detail.js.map
 
 /***/ }),
@@ -196,10 +199,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_comic_service__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_filter_pipe__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_home_home__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_detail_detail__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_providers_filter_pipe__ = __webpack_require__(264);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -226,28 +229,28 @@ var AppModule = (function () {
 AppModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_9__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_7__providers_filter_pipe__["a" /* FilterPipe */],
-            __WEBPACK_IMPORTED_MODULE_10__pages_detail_detail__["a" /* DetailPage */]
+            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
+            __WEBPACK_IMPORTED_MODULE_8__pages_home_home__["a" /* HomePage */],
+            __WEBPACK_IMPORTED_MODULE_10__app_providers_filter_pipe__["a" /* FilterPipe */],
+            __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__["a" /* DetailPage */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */])
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */])
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* IonicApp */]],
         entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_9__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_10__pages_detail_detail__["a" /* DetailPage */]
+            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
+            __WEBPACK_IMPORTED_MODULE_8__pages_home_home__["a" /* HomePage */],
+            __WEBPACK_IMPORTED_MODULE_9__pages_detail_detail__["a" /* DetailPage */]
         ],
         providers: [
             __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */],
             { provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* IonicErrorHandler */] },
             __WEBPACK_IMPORTED_MODULE_6__providers_comic_service__["a" /* ComicService */],
-            __WEBPACK_IMPORTED_MODULE_7__providers_filter_pipe__["a" /* FilterPipe */]
+            __WEBPACK_IMPORTED_MODULE_10__app_providers_filter_pipe__["a" /* FilterPipe */]
         ],
         schemas: [__WEBPACK_IMPORTED_MODULE_2__angular_core__["i" /* CUSTOM_ELEMENTS_SCHEMA */]]
     })
@@ -274,10 +277,16 @@ var FilterPipe = (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (comics, comicFilter) {
+        //if (comics == undefined) return comics;  
+        var parts = comicFilter && comicFilter.toString().trim().split(/\s+/), keys = Object.keys(comicFilter);
+        if (comics == undefined || !parts.length)
+            return comics;
         return comics.filter(function (comic) {
-            var notMatchingField = Object.keys(comicFilter)
-                .find(function (key) { return comic[key] !== comicFilter[key]; });
-            return !notMatchingField; // true if matches all fields
+            return parts.every(function (part) {
+                return keys.some(function (key) {
+                    return String(comic[key]).toLowerCase().indexOf(part.toLowerCase()) > -1;
+                });
+            });
         });
     };
     return FilterPipe;
@@ -288,6 +297,23 @@ FilterPipe = __decorate([
     })
 ], FilterPipe);
 
+/*let parts = comicFilter && comicFilter.toString().trim().split(/\s+/),
+            keys = Object.keys(comicFilter);
+      if (!parts || !parts.length) return comics;
+      return comics.filter(comic => {
+            return parts.every(part => {
+                return keys.some(key => {
+                    return String(comic[key]).toLowerCase().indexOf(part.toLowerCase()) > -1;
+                });
+            });
+      });*/
+/*transform(comics: Array<any>, comicFilter: {[key: string]: any }): Array<any> {
+        return comics.filter(comic => {
+            let notMatchingField = Object.keys(comicFilter)
+                                          .find(key => comic[key] !== comicFilter[key]);
+            return !notMatchingField; // true if matches all fields
+        });
+    }*/
 //# sourceMappingURL=filter.pipe.js.map
 
 /***/ }),
